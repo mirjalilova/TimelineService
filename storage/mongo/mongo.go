@@ -16,8 +16,8 @@ type Storage struct {
 func ConnectMongo() (*Storage,error) {
 	clientOptions := options.Client(
 
-	).ApplyURI("mongodb://mongo:27017").
-	SetAuth(options.Credential{Username: "mongo", Password: "feruza1727"})
+	).ApplyURI("mongodb://mongo:feruza1727@mongo:27017")//.
+	// SetAuth(options.Credential{Username: "mongo", Password: "feruza1727"})
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err!= nil {

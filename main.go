@@ -27,11 +27,11 @@ func main() {
 
 	millistonesService := service.NewMillistonesService(db)
 
-	brokers := []string{"localhost:9092"}
+	brokers := []string{"kafka:9092"}
 
 	kcm := kafka.NewKafkaConsumerManager()
 
-	if err := kcm.RegisterConsumer(brokers, "create-millistones", "eval", kafka.MillistonesCreateHandler(millistonesService)); err != nil {
+	if err := kcm.RegisterConsumer(brokers, "create-millistones", "time", kafka.MillistonesCreateHandler(millistonesService)); err != nil {
 		if err == kafka.ErrConsumerAlreadyExists {
 			log.Printf("Consumer for topic 'create-millistones' already exists")
 		} else {
@@ -39,7 +39,7 @@ func main() {
 		}
 	}
 
-	if err := kcm.RegisterConsumer(brokers, "update-millistones", "eval", kafka.MillistonesCreateHandler(millistonesService)); err != nil {
+	if err := kcm.RegisterConsumer(brokers, "update-millistones", "time", kafka.MillistonesUpdateHandler(millistonesService)); err != nil {
 		if err == kafka.ErrConsumerAlreadyExists {
 			log.Printf("Consumer for topic 'update-millistones' already exists")
 		} else {
